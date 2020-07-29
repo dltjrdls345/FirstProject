@@ -8,7 +8,4 @@ public class CUSTOMER_VO {
 	String 연락처;
 	String 생년월일;
 	String 이메일;
-	String test;
-	
-	
 }
