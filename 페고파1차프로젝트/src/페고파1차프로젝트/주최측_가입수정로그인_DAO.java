@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class HOST_DAO {
+public class 주최측_가입수정로그인_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -205,8 +205,8 @@ public class HOST_DAO {
 	return cnt;
 } 
 	//로그인기능
-	public ArrayList<HOST_VO> login(){
-		ArrayList<HOST_VO> HOST = new ArrayList<HOST_VO>();
+	public ArrayList<주최측_가입수정로그인_VO> login(){
+		ArrayList<주최측_가입수정로그인_VO> HOST = new ArrayList<주최측_가입수정로그인_VO>();
 		
 		try {
 			getConn();

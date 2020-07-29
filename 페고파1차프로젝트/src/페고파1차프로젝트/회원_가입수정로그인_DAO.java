@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CUSTOMER_DAO {
+public class 회원_가입수정로그인_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -250,8 +250,8 @@ public class CUSTOMER_DAO {
 
 	return cnt;
 }	
-	public ArrayList<CUSTOMER_VO> login(){
-		ArrayList<CUSTOMER_VO> CUSTOMER = new ArrayList<CUSTOMER_VO>();
+	public ArrayList<회원_가입수정로그인_VO> login(){
+		ArrayList<회원_가입수정로그인_VO> CUSTOMER = new ArrayList<회원_가입수정로그인_VO>();
 		
 		try {
 			getConn();

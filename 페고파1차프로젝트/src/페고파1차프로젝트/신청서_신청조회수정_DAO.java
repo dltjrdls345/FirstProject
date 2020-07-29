@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class 신청조회수정_DAO {
+public class 신청서_신청조회수정_DAO {
 
 	Connection conn = null;
 	PreparedStatement psmt = null;
@@ -185,9 +185,9 @@ public class 신청조회수정_DAO {
 		return cnt;
 	}
 
-	public ArrayList<신청조회수정_VO> allSelect() {
+	public ArrayList<신청서_신청조회수정_VO> allSelect() {
 
-		ArrayList<신청조회수정_VO> list = new ArrayList<신청조회수정_VO>();
+		ArrayList<신청서_신청조회수정_VO> list = new ArrayList<신청서_신청조회수정_VO>();
 
 		try {
 			getConnection();
@@ -206,7 +206,7 @@ public class 신청조회수정_DAO {
 				String app_int = rs.getString(6);
 				String fes_file = rs.getString(7);
 
-				list.add(new 신청조회수정_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file));
+				list.add(new 신청서_신청조회수정_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file));
 				
 			}
 				for (int i = 0; i < list.size(); i++) {
