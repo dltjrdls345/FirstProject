@@ -11,6 +11,7 @@ public class 일반회원_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+	일반회원_VO vo = null;
 
 	private void getConn() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -44,6 +45,36 @@ public class 일반회원_DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	//Database Access Object
+	public int login(String id, String pw) {
+
+		int cnt = 0;
+
+		try {
+			getConn();
+			String sql = "select id from CUSTOMER where id =? and pw = ?";
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, id);
+			pst.setString(2, pw);
+			rs = pst.executeQuery();
+			String cus_id = null;
+			if (rs.next()) {
+				cus_id = rs.getString(1);
+				
+			}if(cus_id!=null) {
+				cnt = 1;
+			}else {
+				cnt = 0;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 	}
 
 	// 일반회원회원가입
@@ -82,10 +113,11 @@ public class 일반회원_DAO {
 		try {
 			getConn();
 
-			String sql = "DELETE FROM CUSTOMER";
+			String sql = "DELETE FROM CUSTOMER where id=? and pw=?";
 
 			pst = conn.prepareStatement(sql);
-
+			pst.setString(1, vo.getID());
+			pst.setString(2, vo.getPW());
 			cnt = pst.executeUpdate();
 
 		} catch (SQLException e) {
@@ -96,40 +128,19 @@ public class 일반회원_DAO {
 		return cnt;
 	}
 	//회원수정
-	public int update1(String iD) {
+	
+	public int update1(String pW) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE CUSTOMER SET iD=?";
+		String sql = "UPDATE CUSTOMER SET pW=? where id=?";
 
 		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, iD);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}	
-	public int update2(String pW) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE CUSTOMER SET pW=?";
-
-		pst = conn.prepareStatement(sql);
-
+		
 		pst.setString(1, pW);
-
+		pst.setString(2, vo.getID());
 		cnt = pst.executeUpdate();
 
 	} catch (SQLException e) {
@@ -140,20 +151,22 @@ public class 일반회원_DAO {
 
 	return cnt;
 }
-	public int update3(String 주소) {
-
+	public int update2(String 주소) {
+		
+	
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE CUSTOMER SET 주소=?";
+		String sql = "UPDATE CUSTOMER SET 주소=? where id = ?";
 
 		pst = conn.prepareStatement(sql);
 
 		pst.setString(1, 주소);
+		pst.setString(2, vo.getID());
 
 		cnt = pst.executeUpdate();
-
+		
 	} catch (SQLException e) {
 		e.printStackTrace();
 	} finally {
@@ -162,17 +175,18 @@ public class 일반회원_DAO {
 
 	return cnt;
 }
-	public int update4(String 이름) {
+	public int update3(String 이름) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE CUSTOMER SET 이름=?";
+		String sql = "UPDATE CUSTOMER SET 이름=? where id =?";
 
 		pst = conn.prepareStatement(sql);
 
 		pst.setString(1, 이름);
+		pst.setString(2, vo.getID());
 
 		cnt = pst.executeUpdate();
 
@@ -184,17 +198,18 @@ public class 일반회원_DAO {
 
 	return cnt;
 }
-	public int update5(String 연락처) {
+	public int update4(String 연락처) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE CUSTOMER SET 연락처=?";
+		String sql = "UPDATE CUSTOMER SET 연락처=? where id =?";
 
 		pst = conn.prepareStatement(sql);
 
 		pst.setString(1, 연락처);
+		pst.setString(2, vo.getID());
 
 		cnt = pst.executeUpdate();
 
@@ -206,17 +221,18 @@ public class 일반회원_DAO {
 
 	return cnt;
 }
-	public int update6(String 생년월일) {
+	public int update5(String 생년월일) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE CUSTOMER SET 생년월일=?";
+		String sql = "UPDATE CUSTOMER SET 생년월일=? where id =?";
 
 		pst = conn.prepareStatement(sql);
 
 		pst.setString(1, 생년월일);
+		pst.setString(2, vo.getID());
 
 		cnt = pst.executeUpdate();
 
@@ -228,17 +244,18 @@ public class 일반회원_DAO {
 
 	return cnt;
 }
-	public int update7(String 이메일) {
+	public int update6(String 이메일) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE CUSTOMER SET 이메일=?";
+		String sql = "UPDATE CUSTOMER SET 이메일=? where id =?";
 
 		pst = conn.prepareStatement(sql);
 
 		pst.setString(1, 이메일);
+		pst.setString(2, vo.getID());
 
 		cnt = pst.executeUpdate();
 
