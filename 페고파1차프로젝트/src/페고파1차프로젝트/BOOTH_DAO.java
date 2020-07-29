@@ -276,22 +276,23 @@ public class BOOTH_DAO {
 	return cnt;
 }
 	//등록된부스조회
-	public ArrayList<BOOTH_VO> login(){
+	
+	//1. 일반회원
+	public ArrayList<BOOTH_VO> selectMyBooth(){
 		ArrayList<BOOTH_VO> BOOTH = new ArrayList<BOOTH_VO>();
 		
 		try {
 			getConn();
 			
-			String sql = "SELECT * FROM BOOTH where 축제id =? and 대여시작기간 =? and 대여종료기간=? ";
+			String sql = "SELECT * FROM BOOTH";
 			
 			pst = conn.prepareStatement(sql);
-			
+
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				String iD = rs.getString(1);
 		} 
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close();
@@ -299,6 +300,26 @@ public class BOOTH_DAO {
 		return BOOTH;
 		}
 	
-	
+	//2. 주최회원
+	public ArrayList<BOOTH_VO> selectBooth(String id){
+		ArrayList<BOOTH_VO> BOOTH = new ArrayList<BOOTH_VO>();
+		
+		try {
+			getConn();
+			
+			String sql = "SELECT * FROM BOOTH where 축제ID = ?";
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				String iD = rs.getString(1);
+		} 
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return BOOTH;
+		}
 	
 }
