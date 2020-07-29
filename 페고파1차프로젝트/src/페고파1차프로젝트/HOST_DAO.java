@@ -55,7 +55,7 @@ public class HOST_DAO {
 		try {
 			getConn();
 			
-			String sql = "insert into HOST_VO values(?,?,?,?,?)";
+			String sql = "insert into HOST values(?,?,?,?,?)";
 			
 			pst = conn.prepareStatement(sql);
 			
@@ -67,11 +67,7 @@ public class HOST_DAO {
 			
 			cnt = pst.executeUpdate();
 			
-			if(cnt>0) {
-				System.out.println("성공");
-			}else {
-				System.out.println("실패");
-			}
+				
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -108,7 +104,7 @@ public class HOST_DAO {
 	try {
 		getConn();
 
-		String sql = "UPDATE apply SET iD=?";
+		String sql = "UPDATE HOST SET iD=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -129,7 +125,7 @@ public class HOST_DAO {
 	try {
 		getConn();
 
-		String sql = "UPDATE apply SET pW=?";
+		String sql = "UPDATE HOST SET pW=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -150,7 +146,7 @@ public class HOST_DAO {
 	try {
 		getConn();
 
-		String sql = "UPDATE apply SET 주소=?";
+		String sql = "UPDATE HOST SET 주소=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -171,7 +167,7 @@ public class HOST_DAO {
 	try {
 		getConn();
 
-		String sql = "UPDATE apply SET 기관명=?";
+		String sql = "UPDATE HOST SET 기관명=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -192,7 +188,7 @@ public class HOST_DAO {
 	try {
 		getConn();
 
-		String sql = "UPDATE apply SET 연락처=?";
+		String sql = "UPDATE HOST SET 연락처=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -215,7 +211,7 @@ public class HOST_DAO {
 		try {
 			getConn();
 			
-			String sql = "SELECT iD, pW FROM HOST_VO where iD=? and pW = ?";
+			String sql = "SELECT iD, pW FROM HOST where iD=? and pW = ?";
 			
 			pst = conn.prepareStatement(sql);
 			

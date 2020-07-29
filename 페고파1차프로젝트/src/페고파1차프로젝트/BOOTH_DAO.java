@@ -12,13 +12,12 @@ public class BOOTH_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
-	
+
 	private void getConn() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "hr";
 		String password = "hr";
-		
-		
+
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, password);
@@ -29,45 +28,277 @@ public class BOOTH_DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-}
-		private void close() {
-			try {
-				if(rs!=null) {
-				rs.close();}
-				if(pst!=null) {
-					pst.close();
-				}if(conn!=null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}public ArrayList<BOOTH_VO> selectAll(String 축제ID){
-			ArrayList<BOOTH_VO> BOOTH = new ArrayList<BOOTH_VO>();
-			getConn();
-			String sql = "select * from BOOTH";
-			try {
-				pst=conn.prepareStatement(sql);
-				rs = pst.executeQuery();
-				while(rs.next()) {
-					String 부스ID=rs.getString(1);
-					String 부스종류=rs.getString(2);
-					int 대여료=rs.getInt(3);
-					String 대여시작기간=rs.getString(4);
-					String 대여종료기간=rs.getString(5);
-					String 부스크기=rs.getString(6);
-					String 부스상태=rs.getString(7);
-					BOOTH.add(new BOOTH_VO(부스ID, 부스종류, 대여료, 대여시작기간, 대여종료기간, 부스크기, 부스상태, 축제ID));
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				close();
-			}
-		return BOOTH;
-			
-		}
+	}
 
+	private void close() {
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+			if (pst != null) {
+				pst.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//부스등록
+	public int insert(String 부스id, String 부스종류, int 대여료, String 대여시작기간, String 대여종료기간, String 부스크기, String 부스상태,
+			String 축제id) {
+		
+		int cnt=0;
+		try {
+			getConn();
+			
+			String sql = "insert into HOST values(?,?,?,?,?,?,?)";
+			
+			pst = conn.prepareStatement(sql);
+			
+			pst.setString(1, 부스id);
+			pst.setString(2, 부스종류);
+			pst.setInt(3, 대여료);
+			pst.setString(4, 대여시작기간);
+			pst.setString(5, 대여종료기간);
+			pst.setString(6, 부스크기);
+			pst.setString(7, 부스상태);
+			pst.setString(8, 축제id);
+			
+			
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+}	
+	//등록된 부스 삭제
+	public int delete(String 부스id) { 
+
+		int cnt = 0;
+		try {
+			getConn();
+
+			String sql = "DELETE FROM BOOTH";
+
+			pst = conn.prepareStatement(sql);
+
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}	
+	//부스 수정(1번부터8번까지)
+	public int update1(String 부스id) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 부스id=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 부스id);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update2(String 부스종류) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 부스종류=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 부스종류);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update3(int 대여료) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 대여료=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setInt(1, 대여료);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update4(String 대여시작기간) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 대여시작기간=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 대여시작기간);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update5(String 대여종료기간) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 대여종료기간=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 대여종료기간);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update6(String 부스크기) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 부스크기=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 부스크기);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update7(String 부스상태) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 부스상태=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 부스상태);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update8(String 축제id) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE HOST SET 축제id=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 축제id);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	//등록된부스조회
+	public ArrayList<BOOTH_VO> login(){
+		ArrayList<BOOTH_VO> BOOTH = new ArrayList<BOOTH_VO>();
+		
+		try {
+			getConn();
+			
+			String sql = "SELECT * FROM BOOTH where 축제id =? and 대여시작기간 =? and 대여종료기간=? ";
+			
+			pst = conn.prepareStatement(sql);
+			
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				String iD = rs.getString(1);
+		} 
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return BOOTH;
+		}
+	
+	
+	
 }
