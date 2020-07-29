@@ -1,13 +1,13 @@
 package 페고파1차프로젝트;
 
-public class 주최측_가입수정로그인_VO {
+public class 주최회원_VO {
 	String ID;
 	String PW;
 	String 주소;
 	String 기관명;
 	String 연락처;
 	
-	public 주최측_가입수정로그인_VO(String iD, String pW, String 주소, String 기관명, String 연락처) {
+	public 주최회원_VO(String iD, String pW, String 주소, String 기관명, String 연락처) {
 		ID = iD;
 		PW = pW;
 		this.주소 = 주소;

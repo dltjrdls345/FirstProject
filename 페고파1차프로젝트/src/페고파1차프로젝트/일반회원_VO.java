@@ -1,6 +1,6 @@
 package 페고파1차프로젝트;
 
-public class 회원_가입수정로그인_VO {
+public class 일반회원_VO {
 	String ID;
 	String PW;
 	String 주소;
@@ -9,7 +9,7 @@ public class 회원_가입수정로그인_VO {
 	String 생년월일;
 	String 이메일;
 	
-	public 회원_가입수정로그인_VO(String iD, String pW, String 주소, String 이름, String 연락처, String 생년월일, String 이메일) {
+	public 일반회원_VO(String iD, String pW, String 주소, String 이름, String 연락처, String 생년월일, String 이메일) {
 		ID = iD;
 		PW = pW;
 		this.주소 = 주소;
