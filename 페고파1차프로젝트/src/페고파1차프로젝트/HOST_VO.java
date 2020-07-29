@@ -6,4 +6,42 @@ public class HOST_VO {
 	String 林家;
 	String 扁包疙;
 	String 楷遏贸;
+	
+	public HOST_VO(String iD, String pW, String 林家, String 扁包疙, String 楷遏贸) {
+		ID = iD;
+		PW = pW;
+		this.林家 = 林家;
+		this.扁包疙 = 扁包疙;
+		this.楷遏贸 = 楷遏贸;
+	}
+	public String getID() {
+		return ID;
+	}
+	public void setID(String iD) {
+		ID = iD;
+	}
+	public String getPW() {
+		return PW;
+	}
+	public void setPW(String pW) {
+		PW = pW;
+	}
+	public String get林家() {
+		return 林家;
+	}
+	public void set林家(String 林家) {
+		this.林家 = 林家;
+	}
+	public String get扁包疙() {
+		return 扁包疙;
+	}
+	public void set扁包疙(String 扁包疙) {
+		this.扁包疙 = 扁包疙;
+	}
+	public String get楷遏贸() {
+		return 楷遏贸;
+	}
+	public void set楷遏贸(String 楷遏贸) {
+		this.楷遏贸 = 楷遏贸;
+	}
 }
