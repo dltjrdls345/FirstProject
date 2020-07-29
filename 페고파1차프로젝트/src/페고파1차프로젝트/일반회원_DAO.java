@@ -6,13 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-public class 주최측_가입수정로그인_DAO {
+public class 일반회원_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
-	Scanner sc = new Scanner(System.in);
 
 	private void getConn() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -29,7 +27,6 @@ public class 주최측_가입수정로그인_DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void close() {
@@ -44,31 +41,32 @@ public class 주최측_가입수정로그인_DAO {
 				conn.close();
 			}
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	//회원가입
-	public int insert(String iD, String pW, String 주소, String 기관명, String 연락처) {
+	// 일반회원회원가입
+	public int insert(String iD, String pW, String 주소, String 이름, String 연락처, String 생년월일, String 이메일) {
 		
 		int cnt=0;
 		try {
 			getConn();
 			
-			String sql = "insert into HOST values(?,?,?,?,?)";
+			String sql = "insert into HOST values(?,?,?,?,?,?,?)";
 			
 			pst = conn.prepareStatement(sql);
 			
 			pst.setString(1, iD);
 			pst.setString(2, pW);
 			pst.setString(3, 주소);
-			pst.setString(4, 기관명);
+			pst.setString(4, 이름);
 			pst.setString(5, 연락처);
+			pst.setString(6, 생년월일);
+			pst.setString(7, 이메일);
 			
 			cnt = pst.executeUpdate();
-			
-				
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,35 +74,35 @@ public class 주최측_가입수정로그인_DAO {
 			close();
 		}
 		return cnt;
-	}
-	//회원탈퇴
+}
+	// 회원탈퇴
 	public int delete(String iD) { 
 
-	int cnt = 0;
-	try {
-		getConn();
+		int cnt = 0;
+		try {
+			getConn();
 
-		String sql = "DELETE FROM HOST";
+			String sql = "DELETE FROM CUSTOMER";
 
-		pst = conn.prepareStatement(sql);
+			pst = conn.prepareStatement(sql);
 
-		cnt = pst.executeUpdate();
+			cnt = pst.executeUpdate();
 
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
 	}
-	return cnt;
-}	
-	//회원수정1번~5번까지
+	//회원수정
 	public int update1(String iD) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE HOST SET iD=?";
+		String sql = "UPDATE CUSTOMER SET iD=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -119,13 +117,14 @@ public class 주최측_가입수정로그인_DAO {
 	}
 
 	return cnt;
-}	public int update2(String pW) {
+}	
+	public int update2(String pW) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE HOST SET pW=?";
+		String sql = "UPDATE CUSTOMER SET pW=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -140,13 +139,14 @@ public class 주최측_가입수정로그인_DAO {
 	}
 
 	return cnt;
-}	public int update3(String 주소) {
+}
+	public int update3(String 주소) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE HOST SET 주소=?";
+		String sql = "UPDATE CUSTOMER SET 주소=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -161,17 +161,18 @@ public class 주최측_가입수정로그인_DAO {
 	}
 
 	return cnt;
-}	public int update4(String 기관명) {
+}
+	public int update4(String 이름) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE HOST SET 기관명=?";
+		String sql = "UPDATE CUSTOMER SET 이름=?";
 
 		pst = conn.prepareStatement(sql);
 
-		pst.setString(1, 기관명);
+		pst.setString(1, 이름);
 
 		cnt = pst.executeUpdate();
 
@@ -182,13 +183,14 @@ public class 주최측_가입수정로그인_DAO {
 	}
 
 	return cnt;
-}	public int update5(String 연락처) {
+}
+	public int update5(String 연락처) {
 
 	int cnt = 0;
 	try {
 		getConn();
 
-		String sql = "UPDATE HOST SET 연락처=?";
+		String sql = "UPDATE CUSTOMER SET 연락처=?";
 
 		pst = conn.prepareStatement(sql);
 
@@ -203,15 +205,58 @@ public class 주최측_가입수정로그인_DAO {
 	}
 
 	return cnt;
-} 
-	//로그인기능
-	public ArrayList<주최측_가입수정로그인_VO> login(){
-		ArrayList<주최측_가입수정로그인_VO> HOST = new ArrayList<주최측_가입수정로그인_VO>();
+}
+	public int update6(String 생년월일) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE CUSTOMER SET 생년월일=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 생년월일);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}
+	public int update7(String 이메일) {
+
+	int cnt = 0;
+	try {
+		getConn();
+
+		String sql = "UPDATE CUSTOMER SET 이메일=?";
+
+		pst = conn.prepareStatement(sql);
+
+		pst.setString(1, 이메일);
+
+		cnt = pst.executeUpdate();
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close();
+	}
+
+	return cnt;
+}	
+	public ArrayList<일반회원_VO> login(){
+		ArrayList<일반회원_VO> CUSTOMER = new ArrayList<일반회원_VO>();
 		
 		try {
 			getConn();
 			
-			String sql = "SELECT iD, pW FROM HOST where iD=? and pW = ?";
+			String sql = "SELECT iD, pW FROM CUSTOMER where iD=? and pW = ?";
 			
 			pst = conn.prepareStatement(sql);
 			
@@ -226,6 +271,9 @@ public class 주최측_가입수정로그인_DAO {
 		}finally {
 			close();
 		}
-		return HOST;
+		return CUSTOMER;
 		}
+	
+	
+	
 }

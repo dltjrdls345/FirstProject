@@ -1,6 +1,6 @@
 package 페고파1차프로젝트;
 
-public class 신청서_신청조회수정_VO {
+public class 신청서_VO {
 
 	// apply 테이블이 가지고 있는 칼럼
 	private String app_id;
@@ -11,7 +11,7 @@ public class 신청서_신청조회수정_VO {
 	private String app_int;
 	private String fes_file;
 
-	public 신청서_신청조회수정_VO(String app_id, String cus_id, String app_num, String cus_tel, String boo_id, String app_int,
+	public 신청서_VO(String app_id, String cus_id, String app_num, String cus_tel, String boo_id, String app_int,
 			String fes_file) {
 		this.app_id = app_id;
 		this.cus_id = cus_id;
@@ -22,7 +22,7 @@ public class 신청서_신청조회수정_VO {
 		this.fes_file = fes_file;
 	}
 
-	public 신청서_신청조회수정_VO(String app_id, String cus_id, String app_num, String cus_tel, String boo_id, String app_int) {
+	public 신청서_VO(String app_id, String cus_id, String app_num, String cus_tel, String boo_id, String app_int) {
 		this.app_id = app_id;
 		this.cus_id = cus_id;
 		this.app_num = app_num;

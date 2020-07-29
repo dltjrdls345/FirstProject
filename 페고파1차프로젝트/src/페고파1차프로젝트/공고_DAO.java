@@ -1,14 +1,13 @@
 package 페고파1차프로젝트;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class BOOTH_DAO {
+public class 공고_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -98,7 +97,7 @@ public class BOOTH_DAO {
 		}
 		return cnt;
 	}	
-	//부스 수정(1번부터8번까지)
+	//부스 수정(1번부터7번까지)
 	public int update1(String 부스id) {
 
 	int cnt = 0;
@@ -253,33 +252,11 @@ public class BOOTH_DAO {
 
 	return cnt;
 }
-	public int update8(String 축제id) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 축제id=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 축제id);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
 	//등록된부스조회
 	
 	//1. 일반회원
-	public ArrayList<BOOTH_VO> selectMyBooth(){
-		ArrayList<BOOTH_VO> BOOTH = new ArrayList<BOOTH_VO>();
+	public ArrayList<공고_VO> selectAllBooth(){
+		ArrayList<공고_VO> BOOTH = new ArrayList<공고_VO>();
 		
 		try {
 			getConn();
@@ -301,15 +278,15 @@ public class BOOTH_DAO {
 		}
 	
 	//2. 주최회원
-	public ArrayList<BOOTH_VO> selectBooth(String id){
-		ArrayList<BOOTH_VO> BOOTH = new ArrayList<BOOTH_VO>();
+	public ArrayList<공고_VO> selectMyBooth(String 주최id){
+		ArrayList<공고_VO> BOOTH = new ArrayList<공고_VO>();
 		
 		try {
 			getConn();
 			
-			String sql = "SELECT * FROM BOOTH where 축제ID = ?";
+			String sql = "SELECT * FROM BOOTH where ID = ?";
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, id);
+			pst.setString(1, 주최id);
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				String iD = rs.getString(1);
