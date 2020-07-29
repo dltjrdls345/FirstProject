@@ -11,6 +11,7 @@ public class 공고_DAO {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+	주최회원_DAO 주최dao = new 주최회원_DAO();
 
 	private void getConn() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -21,10 +22,8 @@ public class 공고_DAO {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -41,36 +40,33 @@ public class 공고_DAO {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	//부스등록
-	public int insert(String 부스id, String 부스종류, int 대여료, String 대여시작기간, String 대여종료기간, String 부스크기, String 부스상태,
-			String 축제id) {
+	public int insert(공고_VO vo) {
 		
 		int cnt=0;
 		try {
 			getConn();
 			
-			String sql = "insert into HOST values(?,?,?,?,?,?,?)";
+			String sql = "insert into booth values(?,?,?,?,?,?,?)";
 			
 			pst = conn.prepareStatement(sql);
 			
-			pst.setString(1, 부스id);
-			pst.setString(2, 부스종류);
-			pst.setInt(3, 대여료);
-			pst.setString(4, 대여시작기간);
-			pst.setString(5, 대여종료기간);
-			pst.setString(6, 부스크기);
-			pst.setString(7, 부스상태);
-			pst.setString(8, 축제id);
+			pst.setString(1, vo.get부스ID());
+			pst.setString(2, vo.get부스종류());
+			pst.setInt(3, vo.get대여료());
+			pst.setString(4, vo.get대여시작기간());
+			pst.setString(5, vo.get대여종료기간());
+			pst.setString(6, vo.get부스크기());
+			pst.setString(7, vo.get부스상태());
+			pst.setString(8, vo.get축제ID());
 			
 			
 			cnt = pst.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
