@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
-public class ÀÏ¹İ_¼öÅ» {
+public class ¼öÁ¤Å»Åğ_ÀÏ¹İ {
 
 	private JFrame frame;
 	private JTextField ºñ¹Ğ¹øÈ£;
@@ -36,7 +36,7 @@ public class ÀÏ¹İ_¼öÅ» {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ÀÏ¹İ_¼öÅ» window = new ÀÏ¹İ_¼öÅ»();
+					¼öÁ¤Å»Åğ_ÀÏ¹İ window = new ¼öÁ¤Å»Åğ_ÀÏ¹İ();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class ÀÏ¹İ_¼öÅ» {
 		});
 	}
 
-	public ÀÏ¹İ_¼öÅ»() {
+	public ¼öÁ¤Å»Åğ_ÀÏ¹İ() {
 		initialize();
 	}
 
