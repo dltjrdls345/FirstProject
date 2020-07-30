@@ -15,9 +15,6 @@ public class 마이페이지_일반 {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,16 +28,10 @@ public class 마이페이지_일반 {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public 마이페이지_일반() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 359, 520);

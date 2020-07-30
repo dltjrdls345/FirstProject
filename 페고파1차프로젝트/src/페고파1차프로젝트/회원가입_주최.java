@@ -98,7 +98,7 @@ public class 회원가입_주최 {
 		JButton btnNewButton_1 = new JButton("\uAC00\uC785\uC644\uB8CC");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//클릭하면 실행되는 코드
 				주최회원_VO 주최vo = new 주최회원_VO(아이디.getText(), 비밀번호.getText(), 기관명.getText(), 주소.getText(), 문의연락처.getText());
 				주최회원_DAO 주최dao = new 주최회원_DAO();
 				int cnt = 0;

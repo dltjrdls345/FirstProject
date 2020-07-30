@@ -15,13 +15,13 @@ public class test {
 		
 		
 		//로그인 기능 : id, pw 입력받기
-		System.out.print("id 입력 >> ");
-		String id = sc.next();
-		System.out.print("pw 입력 >> ");
-		String pw = sc.next();
-		String res = 일반dao.logIN(id, pw);
+//		System.out.print("id 입력 >> ");
+//		String id = sc.next();
+//		System.out.print("pw 입력 >> ");
+//		String pw = sc.next();
+		String res = 일반dao.logIN(new 일반회원_VO("123","11"));
 		if(res !=null) {
-		일반dao.updateLogtime(id);}
+		일반dao.updateLogtime("123");}
 //		System.out.println(일반dao.updateLogtime(id));
 		System.out.println("현재 로그인 된 아이디" + 일반dao.selectID());
 		

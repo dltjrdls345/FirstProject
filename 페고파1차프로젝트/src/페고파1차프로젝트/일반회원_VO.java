@@ -13,7 +13,9 @@ public class 일반회원_VO {
 	private String logtime;
 	
 	
-	
+	public 일반회원_VO() {
+		
+	}
 	
 	public 일반회원_VO(String iD, String pW) {
 		ID = iD;

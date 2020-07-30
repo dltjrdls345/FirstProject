@@ -23,7 +23,7 @@ public class 일반회원_DAO {
 	ResultSet rs = null;
 
 	private void getConn() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@210.105.224.158:1521:xe";
 		String user = "hr";
 		String password = "hr";
 
@@ -222,5 +222,5 @@ public class 일반회원_DAO {
 
 		return cnt;
 	}
-
+	
 }
