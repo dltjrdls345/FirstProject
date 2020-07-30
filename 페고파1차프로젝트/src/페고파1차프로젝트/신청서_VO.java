@@ -2,7 +2,7 @@ package 페고파1차프로젝트;
 
 public class 신청서_VO {
 
-	// apply 테이블이 가지고 있는 칼럼
+	// apply 테이블이 가지고 있는 칼럼/
 	private String 신청id;
 	private String 이름;
 	private String 사업자번호;
