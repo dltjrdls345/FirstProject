@@ -11,12 +11,11 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class main {
 
 	JFrame frame;
-	private JTextField textField;
-	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -47,25 +46,18 @@ public class main {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("페고파");
-		frame.setBounds(700, 200, 470, 543);
+		frame.setBounds(100, 100, 359, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.ORANGE);
-		panel_1.setBounds(124, 129, 197, 149);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		String img1 = "C:\\Users\\SMT082\\git\\FirstProject\\페고파1차프로젝트\\image\\1.png";
+		Image image1 = new ImageIcon(img1).getImage();
+		JLabel lbl_img1 = new JLabel(new ImageIcon(image1.getScaledInstance(343, 481, Image.SCALE_SMOOTH)));
+		lbl_img1.setBounds(0, 0, 343, 481);
+		frame.getContentPane().add(lbl_img1);
 		
-		textField = new JTextField();
-		textField.setBounds(42, 61, 116, 21);
-		textField.setText("\uB85C\uACE0");
-		textField.setToolTipText("");
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
-		JPanel panel_next = new JPanel();
-		panel_next.addMouseListener(new MouseAdapter() {
+		JPanel panel_nextpg = new JPanel();
+		panel_nextpg.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
@@ -73,16 +65,11 @@ public class main {
 				
 			}
 		});
-		panel_next.setLayout(null);
-		panel_next.setBackground(Color.YELLOW);
-		panel_next.setBounds(351, 183, 79, 57);
-		frame.getContentPane().add(panel_next);
+		panel_nextpg.setLayout(null);
+		panel_nextpg.setBackground(Color.YELLOW);
+		panel_nextpg.setBounds(246, 202, 79, 57);
+		frame.getContentPane().add(panel_nextpg);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("\uC55E\uC73C\uB85C");
-		textField_2.setColumns(10);
-		textField_2.setBounds(25, 10, 42, 21);
-		panel_next.add(textField_2);
 		
 	}
 }
