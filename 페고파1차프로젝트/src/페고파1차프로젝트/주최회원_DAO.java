@@ -17,7 +17,7 @@ public class 주최회원_DAO {
 	// deleteHost() : 현재 로그인된 (주최)회원 탈퇴
 	// showHostInfo() : 현재 로그인된 (주최)회원 정보열람
 	// updateHostInfo() : 현재 로그인된 (주최)회원 정보수정
-	//
+	///
 	
 	Connection conn = null;
 	PreparedStatement pst = null;
