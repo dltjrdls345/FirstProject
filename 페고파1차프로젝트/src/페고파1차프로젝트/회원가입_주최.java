@@ -25,9 +25,6 @@ public class 회원가입_주최 {
 	private JTextField 기관명;
 	private JTextField 문의연락처;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,16 +38,10 @@ public class 회원가입_주최 {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public 회원가입_주최() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("\uD398\uACE0\uD30C");

@@ -105,15 +105,15 @@ public class 주최회원_DAO {
 
 
 	// 로그인기능 -- > id, pw가 일치해야 로그인 : id를 return
-	public String logIN(String id, String pw) {
+	public String logIN(주최회원_VO vo) {
 		String result = null;
 		try {
 			getConn();
 			String sql = "select id from host where id = ? and pw = ?";
 
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, id);
-			pst.setString(2, pw);
+			pst.setString(1, vo.getID());
+			pst.setString(2, vo.getPW());
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				result = rs.getString(1);

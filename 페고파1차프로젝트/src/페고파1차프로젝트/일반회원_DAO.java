@@ -84,15 +84,15 @@ public class 일반회원_DAO {
 
 	// 로그인기능
 
-	public String logIN(String id, String pw) {
+	public String logIN(일반회원_VO vo) {
 		String result=null;
 		try {
 			getConn();
 			String sql = "select id from customer where id = ? and pw = ?";
 
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, id);
-			pst.setString(2, pw);
+			pst.setString(1, vo.getID());
+			pst.setString(2, vo.getPW());
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				result = rs.getString(1);
