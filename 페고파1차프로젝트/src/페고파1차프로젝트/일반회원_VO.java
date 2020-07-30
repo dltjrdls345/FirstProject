@@ -1,6 +1,7 @@
 package 페고파1차프로젝트;
 
 public class 일반회원_VO {
+	//
 	
 	private String ID;
 	private String PW;

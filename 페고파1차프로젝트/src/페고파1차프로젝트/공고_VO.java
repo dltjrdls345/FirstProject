@@ -1,6 +1,7 @@
 package 페고파1차프로젝트;
 
 public class 공고_VO {
+	//
 	private String 부스ID;
 	private String 부스종류;
 	private int 대여료;

@@ -16,6 +16,7 @@ public class 일반회원_DAO {
 		// deleteCustomer() : 현재 로그인된 회원 탈퇴
 		// showCustomerInfo() : 현재 로그인된 회원 정보열람
 		// updateCustomerInfo() : 현재 로그인된 회원 정보수정
+	//
 	
 	Connection conn = null;
 	PreparedStatement pst = null;

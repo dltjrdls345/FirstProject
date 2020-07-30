@@ -7,7 +7,7 @@ public class 주최회원_VO {
 	private String 기관명;
 	private String 연락처;
 	private String logtime;
-	
+	//
 	
 
 
