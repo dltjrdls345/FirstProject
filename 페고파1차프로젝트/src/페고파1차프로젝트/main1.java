@@ -2,19 +2,19 @@ package 페고파1차프로젝트;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class main1 {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -45,12 +45,21 @@ public class main1 {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("페고파");
-		frame.setBounds(700, 200, 470, 543);
+		frame.setBounds(100, 100, 359, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.addMouseListener(new MouseAdapter() {
+		String img2 = "C:\\Users\\SMT082\\git\\FirstProject\\페고파1차프로젝트\\image\\2.png";
+		Image image2 = new ImageIcon(img2).getImage();
+		JLabel lbl_img2 = new JLabel(new ImageIcon(image2.getScaledInstance(343, 481, Image.SCALE_SMOOTH)));
+		lbl_img2.setBounds(0, 0, 343, 481);
+		frame.getContentPane().add(lbl_img2);
+
+		
+		
+		JPanel panel_등록가기 = new JPanel();
+		panel_등록가기.setBackground(new Color(255, 0, 0, 0));
+		panel_등록가기.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
@@ -58,17 +67,10 @@ public class main1 {
 				
 			}
 		});
-		panel_1.setBackground(Color.ORANGE);
-		panel_1.setBounds(124, 129, 197, 149);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(42, 61, 116, 21);
-		textField.setText("\uB4F1\uB85D \uBC14\uB85C\uAC00\uAE30 \uBC84\uD2BC");
-		textField.setToolTipText("");
-		panel_1.add(textField);
-		textField.setColumns(10);
+		panel_등록가기.setBackground(Color.ORANGE);
+		panel_등록가기.setBounds(110, 181, 123, 102);
+		frame.getContentPane().add(panel_등록가기);
+		panel_등록가기.setLayout(null);
 		
 		JPanel panel_back = new JPanel();
 		panel_back.addMouseListener(new MouseAdapter() {
@@ -79,15 +81,9 @@ public class main1 {
 			}
 		});
 		panel_back.setBackground(Color.YELLOW);
-		panel_back.setBounds(12, 194, 79, 57);
+		panel_back.setBounds(12, 251, 60, 45);
 		frame.getContentPane().add(panel_back);
 		panel_back.setLayout(null);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(24, 10, 42, 21);
-		textField_1.setText("\uB4A4\uB85C");
-		panel_back.add(textField_1);
-		textField_1.setColumns(10);
 		
 		JPanel panel_next = new JPanel();
 		panel_next.addMouseListener(new MouseAdapter() {
@@ -101,14 +97,9 @@ public class main1 {
 		});
 		panel_next.setLayout(null);
 		panel_next.setBackground(Color.YELLOW);
-		panel_next.setBounds(351, 183, 79, 57);
+		panel_next.setBounds(271, 251, 60, 45);
 		frame.getContentPane().add(panel_next);
 		
-		textField_2 = new JTextField();
-		textField_2.setText("\uC55E\uC73C\uB85C");
-		textField_2.setColumns(10);
-		textField_2.setBounds(25, 10, 42, 21);
-		panel_next.add(textField_2);
 		
 	}
 }
