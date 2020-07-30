@@ -1,1 +1,1 @@
-select * from apply
+select * from customer
