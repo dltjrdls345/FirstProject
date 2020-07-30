@@ -52,7 +52,7 @@ public class ÀÏ¹Ý_¼öÅ» {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("\uAC1C\uC778\uD68C\uC6D0 \uAC1C\uC778\uC815\uBCF4 \uC218\uC815");
+		JLabel lblNewLabel = new JLabel("\uC77C\uBC18\uD68C\uC6D0 \uAC1C\uC778\uC815\uBCF4 \uC218\uC815");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(35, 10, 259, 37);
 		frame.getContentPane().add(lblNewLabel);
