@@ -12,7 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -48,54 +51,54 @@ public class 회원가입_일반 {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("페고파");
-		frame.setBounds(700, 200, 470, 543);
+		frame.setBounds(100,100,359,520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 454, 504);
+		panel.setBackground(new Color(255,0,0,0));
+		panel.setBounds(0, 0, 358, 504);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		아이디 = new JTextField();
 		아이디.setColumns(10);
-		아이디.setBounds(155, 100, 248, 21);
+		아이디.setBounds(97, 100, 195, 21);
 		panel.add(아이디);
 		
 		비밀번호 = new JTextField();
 		비밀번호.setColumns(10);
-		비밀번호.setBounds(155, 145, 248, 21);
+		비밀번호.setBounds(97, 145, 189, 21);
 		panel.add(비밀번호);
 		
 		비밀번호확인 = new JTextField();
 		비밀번호확인.setColumns(10);
-		비밀번호확인.setBounds(155, 190, 248, 21);
+		비밀번호확인.setBounds(97, 190, 195, 21);
 		panel.add(비밀번호확인);
 		
 		이름 = new JTextField();
 		이름.setColumns(10);
-		이름.setBounds(155, 235, 248, 21);
+		이름.setBounds(97, 235, 195, 21);
 		panel.add(이름);
 		
 		생년월일 = new JTextField();
-		생년월일.setBounds(155, 263, 248, 21);
+		생년월일.setBounds(97, 263, 195, 21);
 		panel.add(생년월일);
 		생년월일.setColumns(10);
 		
 		주소 = new JTextField();
 		주소.setColumns(10);
-		주소.setBounds(155, 294, 248, 21);
+		주소.setBounds(97, 294, 180, 21);
 		panel.add(주소);
 		
 		연락처 = new JTextField();
 		연락처.setColumns(10);
-		연락처.setBounds(155, 325, 248, 21);
+		연락처.setBounds(97, 325, 195, 21);
 		panel.add(연락처);
 		
 		이메일 = new JTextField();
 		이메일.setColumns(10);
-		이메일.setBounds(155, 370, 248, 21);
+		이메일.setBounds(97, 370, 180, 21);
 		panel.add(이메일);
 		
 		JButton btnNewButton = new JButton("\uB4A4\uB85C\uAC00\uAE30");
@@ -135,49 +138,51 @@ public class 회원가입_일반 {
 				
 			}
 		});
-		btnNewButton_1.setBounds(306, 423, 97, 35);
+		btnNewButton_1.setBounds(177, 423, 97, 35);
 		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("\uC544\uC774\uB514");
-		lblNewLabel.setBounds(62, 100, 57, 21);
+		lblNewLabel.setBounds(28, 100, 57, 21);
 		panel.add(lblNewLabel);
 		
 		JLabel lblPw = new JLabel("\uBE44\uBC00\uBC88\uD638");
-		lblPw.setBounds(62, 145, 57, 21);
+		lblPw.setBounds(28, 145, 57, 21);
 		panel.add(lblPw);
 		
 		JLabel lblNewLabel_2 = new JLabel("\uC8FC\uC18C");
-		lblNewLabel_2.setBounds(62, 294, 57, 21);
+		lblNewLabel_2.setBounds(28, 294, 57, 21);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("\uC774\uB984");
-		lblNewLabel_3.setBounds(62, 235, 57, 21);
+		lblNewLabel_3.setBounds(28, 235, 57, 21);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("\uC5F0\uB77D\uCC98");
-		lblNewLabel_4.setBounds(62, 325, 57, 21);
+		lblNewLabel_4.setBounds(28, 325, 57, 21);
 		panel.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("\uC774\uBA54\uC77C");
-		lblNewLabel_5.setBounds(62, 370, 57, 21);
+		lblNewLabel_5.setBounds(28, 370, 57, 21);
 		panel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_1 = new JLabel("\uC77C\uBC18\uD68C\uC6D0 \uAC00\uC785");
 		lblNewLabel_1.setFont(new Font("함초롬바탕", Font.PLAIN, 24));
-		lblNewLabel_1.setBounds(50, 28, 166, 46);
+		lblNewLabel_1.setBounds(108, 28, 166, 46);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_5_1 = new JLabel("\uBE44\uBC00\uBC88\uD638 \uD655\uC778");
-		lblNewLabel_5_1.setBounds(62, 190, 81, 21);
+		lblNewLabel_5_1.setBounds(28, 190, 57, 35);
 		panel.add(lblNewLabel_5_1);
 		
 		JLabel lblNewLabel_6 = new JLabel("\uC0DD\uB144\uC6D4\uC77C");
-		lblNewLabel_6.setBounds(62, 266, 57, 15);
+		lblNewLabel_6.setBounds(28, 266, 57, 15);
 		panel.add(lblNewLabel_6);
 		
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 454, 504);
-		frame.getContentPane().add(tabbedPane);
+		String img8 = "C:\\Users\\SMT082\\git\\FirstProject\\페고파1차프로젝트\\image\\8.png";
+		Image image8 = new ImageIcon(img8).getImage();
+		JLabel lbl_img8 = new JLabel(new ImageIcon(image8.getScaledInstance(343, 481, Image.SCALE_SMOOTH)));
+		lbl_img8.setBounds(0, 0, 343, 481);
+		frame.getContentPane().add(lbl_img8);
 	}
 }
