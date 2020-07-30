@@ -1,33 +1,34 @@
 package 페고파1차프로젝트;
 
 public class 공고_VO {
-	String 부스ID;
-	String 부스종류;
-	int 대여료;
-	String 대여시작기간;
-	String 대여종료기간;
-	String 부스크기;
-	String 부스상태;
-	String 축제ID;
-	String 주최ID;
+	///
+	private String 부스ID;
+	private String 부스종류;
+	private int 대여료;
+	private String 대여시작기간;
+	private String 대여종료기간;
+	private String 부스크기;
+	private String 부스상태;
+	private String 축제ID;
+	private String 주최ID;
 	
 	public 공고_VO(String 부스id, String 부스종류, int 대여료, String 대여시작기간, String 대여종료기간, String 부스크기, String 부스상태,
 			String 축제id,String 주최id) {
-		부스ID = 부스id;
+		this.부스ID = 부스id;
 		this.부스종류 = 부스종류;
 		this.대여료 = 대여료;
 		this.대여시작기간 = 대여시작기간;
 		this.대여종료기간 = 대여종료기간;
 		this.부스크기 = 부스크기;
 		this.부스상태 = 부스상태;
-		축제ID = 축제id;
-		주최ID = 주최id;
+		this.축제ID = 축제id;
+		this.주최ID = 주최id;
 	}
 	public String get부스ID() {
 		return 부스ID;
 	}
 	public void set부스ID(String 부스id) {
-		부스ID = 부스id;
+		this.부스ID = 부스id;
 	}
 	public String get부스종류() {
 		return 부스종류;
@@ -69,13 +70,13 @@ public class 공고_VO {
 		return 축제ID;
 	}
 	public void set축제ID(String 축제id) {
-		축제ID = 축제id;
+		this.축제ID = 축제id;
 	}
 	public String get주최ID() {
 		return 주최ID;
 	}
 	public void set주최ID(String 주최id) {
-		주최ID = 주최id;
+		this.주최ID = 주최id;
 	}
 	
 }

@@ -8,10 +8,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class 일반회원_DAO {
+		// -- 구현된 기능 정리 --
+		// insert() : vo 받아서 회원가입
+		// logIN() : 아이디, 비밀번호 받아 일치하는지 확인하고, 일치하면 id 리턴
+		// updateLogtime() : 로그인 성공 시 해당 id의 systime 갱신하여 로그인 상태 구별
+		// selectID() : 현재 로그인 되어있는 id 정보 가져옴
+		// deleteCustomer() : 현재 로그인된 회원 탈퇴
+		// showCustomerInfo() : 현재 로그인된 회원 정보열람
+		// updateCustomerInfo() : 현재 로그인된 회원 정보수정
+	///
+	
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
-	일반회원_VO vo = null;
 
 	private void getConn() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -22,10 +31,8 @@ public class 일반회원_DAO {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -42,34 +49,73 @@ public class 일반회원_DAO {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	//Database Access Object
-	public int login(String id, String pw) {
+
+	// 일반회원회원가입
+	public int insert(일반회원_VO vo) {
 
 		int cnt = 0;
-
 		try {
 			getConn();
-			String sql = "select id from CUSTOMER where id =? and pw = ?";
+
+			String sql = "insert into customer values(?,?,?,?,?,?,?,null)";
+
+			pst = conn.prepareStatement(sql);
+
+			pst.setString(1, vo.getID());
+			pst.setString(2, vo.getPW());
+			pst.setString(3, vo.get주소());
+			pst.setString(4, vo.get이름());
+			pst.setString(5, vo.get연락처());
+			pst.setString(6, vo.get생년월일());
+			pst.setString(7, vo.get이메일());
+
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+
+	// 로그인기능
+
+	public String logIN(String id, String pw) {
+		String result=null;
+		try {
+			getConn();
+			String sql = "select id from customer where id = ? and pw = ?";
+
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, id);
 			pst.setString(2, pw);
 			rs = pst.executeQuery();
-			String cus_id = null;
 			if (rs.next()) {
-				cus_id = rs.getString(1);
-				
-			}if(cus_id!=null) {
-				cnt = 1;
-			}else {
-				cnt = 0;
+				result = rs.getString(1);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+	}
+
+	// systimestamp update 기능(로그인시 갱신)
+	public int updateLogtime(String id) {
+		int cnt = 0;
+		try {
+			getConn();
+			String sql = "update customer set logtime = systimestamp where id = ?";
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, id);
+			cnt = pst.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
@@ -77,47 +123,66 @@ public class 일반회원_DAO {
 		return cnt;
 	}
 
-	// 일반회원회원가입
-	public int insert(String iD, String pW, String 주소, String 이름, String 연락처, String 생년월일, String 이메일) {
-		
-		int cnt=0;
+	// 현재 로그인한 아이디 가져오기
+	public String selectID() {
+		String id = null;
 		try {
 			getConn();
-			
-			String sql = "insert into HOST values(?,?,?,?,?,?,?)";
-			
-			pst = conn.prepareStatement(sql);
-			
-			pst.setString(1, iD);
-			pst.setString(2, pW);
-			pst.setString(3, 주소);
-			pst.setString(4, 이름);
-			pst.setString(5, 연락처);
-			pst.setString(6, 생년월일);
-			pst.setString(7, 이메일);
-			
-			cnt = pst.executeUpdate();
+			String sql = "select id from customer where logtime = (select max(logtime) from customer)";
 
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				id = rs.getString(1);
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		return cnt;
-}
-	// 회원탈퇴
-	public int delete(String iD) { 
+		return id;
+	}
+
+	// 회원 정보조회(본인꺼)
+	public 일반회원_VO showCustomerInfo() {
+		일반회원_VO vo = null;
+		try {
+			getConn();
+
+			String sql = "SELECT * FROM CUSTOMER where logtime = (select max(logtime) from customer)";
+
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				String id = rs.getString(1);
+				String pw = rs.getString(2);
+				String 주소 = rs.getString(3);
+				String 이름 = rs.getString(4);
+				String 연락처 = rs.getString(5);
+				String 생년월일 = rs.getString(6);
+				String 이메일 = rs.getString(7);
+				String logtime = rs.getString(8);
+				vo = new 일반회원_VO(id, pw, 주소, 이름, 연락처, 생년월일, 이메일, logtime);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return vo;
+	}
+
+	// 회원탈퇴 -- 현재 로그인한 회원의 탈퇴
+	public int deleteCustomer() {
 
 		int cnt = 0;
 		try {
 			getConn();
 
-			String sql = "DELETE FROM CUSTOMER where id=? and pw=?";
+			String sql = "delete from customer where logtime = (select max(logtime) from customer)";
 
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, vo.getID());
-			pst.setString(2, vo.getPW());
 			cnt = pst.executeUpdate();
 
 		} catch (SQLException e) {
@@ -127,170 +192,35 @@ public class 일반회원_DAO {
 		}
 		return cnt;
 	}
-	//회원수정
 	
-	public int update1(String pW) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE CUSTOMER SET pW=? where id=?";
-
-		pst = conn.prepareStatement(sql);
-		
-		pst.setString(1, pW);
-		pst.setString(2, vo.getID());
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update2(String 주소) {
-		
 	
-	int cnt = 0;
-	try {
-		getConn();
+//	 회원 수정 - - -> 현재 로그인한 회원의 정보를 수정
+	public int updateCustomerInfo(일반회원_VO vo) {
 
-		String sql = "UPDATE CUSTOMER SET 주소=? where id = ?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 주소);
-		pst.setString(2, vo.getID());
-
-		cnt = pst.executeUpdate();
-		
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update3(String 이름) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE CUSTOMER SET 이름=? where id =?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 이름);
-		pst.setString(2, vo.getID());
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update4(String 연락처) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE CUSTOMER SET 연락처=? where id =?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 연락처);
-		pst.setString(2, vo.getID());
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update5(String 생년월일) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE CUSTOMER SET 생년월일=? where id =?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 생년월일);
-		pst.setString(2, vo.getID());
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update6(String 이메일) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE CUSTOMER SET 이메일=? where id =?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 이메일);
-		pst.setString(2, vo.getID());
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}	
-	public ArrayList<일반회원_VO> login(){
-		ArrayList<일반회원_VO> CUSTOMER = new ArrayList<일반회원_VO>();
-		
+		int cnt = 0;
 		try {
 			getConn();
-			
-			String sql = "SELECT iD, pW FROM CUSTOMER where iD=? and pW = ?";
-			
+
+			String sql = "UPDATE CUSTOMER SET pw = ?, 주소 = ?, 이름 = ?, 연락처 = ?, 생년월일 = ? , 이메일 = ? where logtime = (select max(logtime) from customer)";
+
 			pst = conn.prepareStatement(sql);
-			
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				String iD = rs.getString(1);
-				String pW = rs.getString(2);
-		} 
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
+
+			pst.setString(1, vo.getPW());
+			pst.setString(2, vo.get주소());
+			pst.setString(3, vo.get이름());
+			pst.setString(4, vo.get연락처());
+			pst.setString(5, vo.get생년월일());
+			pst.setString(6, vo.get이메일());
+
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close();
 		}
-		return CUSTOMER;
-		}
-	
-	
-	
+
+		return cnt;
+	}
+
 }

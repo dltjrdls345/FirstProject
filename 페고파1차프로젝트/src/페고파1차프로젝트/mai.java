@@ -11,16 +11,16 @@ public class mai {
 		
 		//로그인기능구현
 		
-			System.out.println("아이디를 입력하세요 >> ");
-			String id = sc.next();
-			System.out.println("비밀번호를 입력하세요 >> ");
-			String pw = sc.next();
-			int cnt  = dao.login(id,pw);
-			if(cnt>0) {
-				System.out.println("로그인 성공");
-			}else {
-				System.out.println("로그인 실패");
-				}
+//			System.out.println("아이디를 입력하세요 >> ");
+//			String id = sc.next();
+//			System.out.println("비밀번호를 입력하세요 >> ");
+//			String pw = sc.next();
+////			int cnt  = dao.login(id,pw);
+//			if(cnt>0) {
+//				System.out.println("로그인 성공");
+//			}else {
+//				System.out.println("로그인 실패");
+//				}
 			
 		//회원가입 기능구현	
 			
