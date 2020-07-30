@@ -9,14 +9,19 @@ import java.util.ArrayList;
 
 
 public class 신청서_DAO {
-	///.신청서 상태 업데이트 0
-	// 신청서 변경
-	// 신청서 삭제
-	// 신청서 넣기 0
+	///updateApply : 신청서 작성내역 변경(일반회원이 자기가 작성한 신청서 수정)
+	// 신청서 상태 변경(주최자가 변경가능 : 승인  updateApplyCommit, 대기 updateApplyWait, 거절 updateApplyRefuse)
+	// deleteApply 신청서 삭제(일반회원이 자기가 작성한 신청서 삭제)
+	// insertApply : 신청서 넣기 (일반회원이 자기가 대여하려는 부스 신청서 작성)
+	// selectMyApply() : 본인이 작성한 신청서 목록 전체보기
 	
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+	주최회원_DAO 주최dao = new 주최회원_DAO();
+	일반회원_DAO 일반dao = new 일반회원_DAO();
+	축제DAO 축제dao = new 축제DAO();
+	
 
 	private void getConnection() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -49,23 +54,26 @@ public class 신청서_DAO {
 		}
 	}
 
-	public int insert(String 신청ID, String 이름, String 사업자번호, String 연락처, String 부스ID, String 부스소개, String 첨부파일) {
+	//신청서 작성(일반회원)
 
+	public int insertApply(신청서_VO vo) {
+		String id = 일반dao.selectID();
 		int cnt = 0;
+		int num = 0;
 		try {
 			getConnection();
 
-			String sql = "insert into apply values (?,?,?,?,?,?,?)";
+			String sql = "insert into apply(신청id,이름,사업자번호,연락처,부스id,부스소개 ,첨부파일,회원id,축제id) values(EX_SEQ.NEXTVAL,?,?,?,?,?,?,?,?)";
 
 			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, 신청ID);
-			psmt.setString(2, 이름);
-			psmt.setString(3, 사업자번호);
-			psmt.setString(4, 연락처);
-			psmt.setString(5, 부스ID);
-			psmt.setString(6, 부스소개);
-			psmt.setString(7, 첨부파일);
+			psmt.setString(1, vo.get이름());
+			psmt.setString(2, vo.get사업자번호());
+			psmt.setString(3, vo.get연락처());
+			psmt.setString(4, vo.get부스id());
+			psmt.setString(5, vo.get부스소개());
+			psmt.setString(6, vo.get첨부파일());
+			psmt.setString(7, id);
+			psmt.setString(8, vo.get축제id());
 
 			cnt = psmt.executeUpdate();
 
@@ -77,18 +85,19 @@ public class 신청서_DAO {
 		return cnt;
 	}
 	
-	//신청서 삭제
-	public int delete(String 신청id) {
-
+	//신청서 삭제(일반회원)
+	public int deleteApply(String 신청id) {
+		String id = 일반dao.selectID();
 		int cnt = 0;
 		try {
 			getConnection();
 
-			String sql = "DELETE FROM apply where 신청id=?";
+			String sql = "DELETE FROM apply where 신청id=? and 회원id = ?";
 
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, 신청id);
+			psmt.setString(2, id);
 			
 			cnt = psmt.executeUpdate();
 
@@ -99,14 +108,14 @@ public class 신청서_DAO {
 		}
 		return cnt;
 	}
-	//신청서 수정
-	public int update_cusTel(신청서_VO vo) {
-
+	//신청서 수정(일반회원)
+	public int updateApply(신청서_VO vo) {
+		String id = 일반dao.selectID();
 		int cnt = 0;
 		try {
 			getConnection();
 
-			String sql = "UPDATE apply SET 사업자번호=?,연락처=?,부스id=?,부스소개=?,첨부파일=?,신청상태=?where 신청id=?";
+			String sql = "UPDATE apply SET 사업자번호=?,연락처=?,부스id=?,부스소개=?,첨부파일=?,신청상태=? where 신청id=? and 회원id = ?";
 
 			psmt = conn.prepareStatement(sql);
 
@@ -116,6 +125,9 @@ public class 신청서_DAO {
 			psmt.setString(4, vo.get부스소개());
 			psmt.setString(5, vo.get첨부파일());
 			psmt.setString(6, vo.get신청상태());
+			psmt.setNString(7, vo.get신청id());
+			psmt.setString(8, id);
+			
 
 			cnt = psmt.executeUpdate();
 
@@ -128,16 +140,18 @@ public class 신청서_DAO {
 		return cnt;
 	}
 
-	public ArrayList<신청서_VO> allSelect() {
+	//본인이 작성한 신청서 모두 보기
+	public ArrayList<신청서_VO> selectMyApply() {
 
 		ArrayList<신청서_VO> list = new ArrayList<신청서_VO>();
-
+		String id = 일반dao.selectID();
+		
 		try {
 			getConnection();
 			
-			String sql = "SELECT * FROM apply";
+			String sql = "SELECT * FROM apply where 회원id = ?";
 			psmt = conn.prepareStatement(sql);
-
+			psmt.setString(1, id);
 			rs = psmt.executeQuery();
 
 			while (rs.next()) {
@@ -154,9 +168,6 @@ public class 신청서_DAO {
 				list.add(new 신청서_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file, 신청상태, 회원id));
 				
 			}
-				for (int i = 0; i < list.size(); i++) {
-					System.out.println(i + "\t" + list.get(i).get신청id() + "\t "+ list.get(i).get이름() + "\t" + list.get(i).get사업자번호() + "\t" + list.get(i).get연락처() + "\t" + list.get(i).get부스id() + "\t" + list.get(i).get부스소개() + "\t" + list.get(i).get첨부파일() +"\t" + list.get(i).get신청상태() +"\t" + list.get(i).get회원id());
-					}
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -166,9 +177,9 @@ public class 신청서_DAO {
 
 		return list;
 	}
-	//부스 상태(대기,승인)
-	public int updateapplywait(신청서_VO vo) {
-		
+	//신청서 상태 변경(승인.거절.대기)
+	// --> 상태 '대기'로 변환
+	public int updateApplyWait(신청서_VO vo) {
 		int cnt = 0;
 		try {
 			getConnection();
@@ -190,8 +201,8 @@ public class 신청서_DAO {
 		return cnt;
 
 	}
-	public int updateapplycommit(신청서_VO vo) {
-		
+	// --> 상태 '승낙'로 변환
+	public int updateAppltCommit(신청서_VO vo) {
 		int cnt = 0;
 		try {
 			getConnection();
@@ -213,7 +224,8 @@ public class 신청서_DAO {
 		return cnt;
 
 	}
-	public int updateapplyrefuse(신청서_VO vo) {
+	// --> 상태 '거절'로 변환
+	public int updateApplyRefuse(신청서_VO vo) {
 		
 		int cnt = 0;
 		try {
