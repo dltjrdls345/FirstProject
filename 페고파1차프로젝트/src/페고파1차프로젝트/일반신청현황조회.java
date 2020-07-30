@@ -1,8 +1,11 @@
 package 페고파1차프로젝트;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
@@ -66,5 +69,13 @@ public class 일반신청현황조회 {
 		
 		table = new JTable();
 		scrollPane.setColumnHeaderView(table);
+		
+		
+		String img20 = "C:\\Users\\SMT082\\git\\FirstProject\\페고파1차프로젝트\\image\\20.png";
+		Image image20 = new ImageIcon(img20).getImage();
+		JLabel lbl_img20 = new JLabel(new ImageIcon(image20.getScaledInstance(343, 481, Image.SCALE_SMOOTH)));
+		lbl_img20.setBounds(0, 0, 343, 481);
+		frame.getContentPane().add(lbl_img20);
+
 	}
 }
