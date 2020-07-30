@@ -1,6 +1,6 @@
 package 페고파1차프로젝트;
 
-public class 공고_VO {
+public class 부스VO {
 	////
 	private String 부스ID;
 	private String 부스종류;
@@ -12,7 +12,7 @@ public class 공고_VO {
 	private String 축제ID;
 	private String 주최ID;
 	
-	public 공고_VO(String 부스id, String 부스종류, int 대여료, String 대여시작기간, String 대여종료기간, String 부스크기, String 부스상태,
+	public 부스VO(String 부스id, String 부스종류, int 대여료, String 대여시작기간, String 대여종료기간, String 부스크기, String 부스상태,
 			String 축제id,String 주최id) {
 		this.부스ID = 부스id;
 		this.부스종류 = 부스종류;

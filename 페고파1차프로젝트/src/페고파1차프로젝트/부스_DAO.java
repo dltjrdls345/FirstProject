@@ -7,8 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class 공고_DAO {
-	///
+public class 부스_DAO {
+	///festival, 주최측만 올릴수잇어요(로그인)
+	// 1. 페스티벌에 해당하는 -- > 부스등록
+	// 2. 부스를 삭제할꺼 --완료
+	// 3. 부스를 조회(자기 부스만..로그인) 
+	// 4. 부스 수정 --완료(예슬이가 가져오는거 알아오는중)
+	//     
+	// 축제id별로 조회 :  where 축제id = (select id from festival where 축제 id = ?) 
+	// 
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -45,7 +52,7 @@ public class 공고_DAO {
 		}
 	}
 	//부스등록
-	public int insert(공고_VO vo) {
+	public int insert(부스VO vo) {
 		
 		int cnt=0;
 		try {
@@ -75,13 +82,13 @@ public class 공고_DAO {
 		return cnt;
 }	
 	//등록된 부스 삭제
-	public int delete(String 부스id) { 
+	public int deleteBooth(String 부스id) { 
 
 		int cnt = 0;
 		try {
 			getConn();
 
-			String sql = "DELETE FROM BOOTH";
+			String sql = "DELETE FROM BOOTH where 부스id = ?";
 
 			pst = conn.prepareStatement(sql);
 
@@ -94,18 +101,25 @@ public class 공고_DAO {
 		}
 		return cnt;
 	}	
-	//부스 수정(1번부터7번까지)
-	public int update1(String 부스id) {
+	//등록된 부스 수정
+	public int update1(부스VO vo) {
 
 	int cnt = 0;
 	try {
 		getConn();
-
-		String sql = "UPDATE HOST SET 부스id=?";
+		
+		String sql = "UPDATE BOOTH SET 부스id=?,부스종류=?,대여료=?,대여시작기간=?,대여종료기간=?,부스크기=?,부스상태=? where 축제ID = ? and 부스ID = ? ";
 
 		pst = conn.prepareStatement(sql);
 
-		pst.setString(1, 부스id);
+		pst.setString(1, vo.get부스ID());
+		pst.setString(2, vo.get부스종류());
+		pst.setInt(3, vo.get대여료());
+		pst.setString(4, vo.get대여시작기간());
+		pst.setString(5, vo.get대여종료기간());
+		pst.setString(6, vo.get부스크기());
+		pst.setString(7, vo.get부스상태());
+		
 
 		cnt = pst.executeUpdate();
 
@@ -117,143 +131,12 @@ public class 공고_DAO {
 
 	return cnt;
 }
-	public int update2(String 부스종류) {
 
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 부스종류=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 부스종류);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update3(int 대여료) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 대여료=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setInt(1, 대여료);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update4(String 대여시작기간) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 대여시작기간=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 대여시작기간);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update5(String 대여종료기간) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 대여종료기간=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 대여종료기간);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update6(String 부스크기) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 부스크기=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 부스크기);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
-	public int update7(String 부스상태) {
-
-	int cnt = 0;
-	try {
-		getConn();
-
-		String sql = "UPDATE HOST SET 부스상태=?";
-
-		pst = conn.prepareStatement(sql);
-
-		pst.setString(1, 부스상태);
-
-		cnt = pst.executeUpdate();
-
-	} catch (SQLException e) {
-		e.printStackTrace();
-	} finally {
-		close();
-	}
-
-	return cnt;
-}
 	//등록된부스조회
 	
 	//1. 일반회원
-	public ArrayList<공고_VO> selectAllBooth(){
-		ArrayList<공고_VO> BOOTH = new ArrayList<공고_VO>();
+	public ArrayList<부스VO> selectAllBooth(){
+		ArrayList<부스VO> BOOTH = new ArrayList<부스VO>();
 		
 		try {
 			getConn();
@@ -275,15 +158,17 @@ public class 공고_DAO {
 		}
 	
 	//2. 주최회원
-	public ArrayList<공고_VO> selectMyBooth(String 주최id){
-		ArrayList<공고_VO> BOOTH = new ArrayList<공고_VO>();
+	public ArrayList<부스VO> selectMyBooth(String 주최id){
+		ArrayList<부스VO> BOOTH = new ArrayList<부스VO>();
 		
 		try {
 			getConn();
 			
-			String sql = "SELECT * FROM BOOTH where ID = ?";
+			String sql = "SELECT * FROM BOOTH where 축제id = (select id from festival where 축제 id = ?) ";
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, 주최id);
+
+//			pst.setString(1, 주최id);
+			
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				String iD = rs.getString(1);
