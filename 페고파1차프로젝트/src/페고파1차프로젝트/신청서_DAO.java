@@ -9,7 +9,11 @@ import java.util.ArrayList;
 
 
 public class 신청서_DAO {
-//
+	///.신청서 상태 업데이트 0
+	// 신청서 변경
+	// 신청서 삭제
+	// 신청서 넣기 0
+	
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
@@ -55,13 +59,13 @@ public class 신청서_DAO {
 
 			psmt = conn.prepareStatement(sql);
 
-			psmt.setNString(1, 신청ID);
-			psmt.setNString(2, 이름);
-			psmt.setNString(3, 사업자번호);
-			psmt.setNString(4, 연락처);
-			psmt.setNString(5, 부스ID);
-			psmt.setNString(6, 부스소개);
-			psmt.setNString(7, 첨부파일);
+			psmt.setString(1, 신청ID);
+			psmt.setString(2, 이름);
+			psmt.setString(3, 사업자번호);
+			psmt.setString(4, 연락처);
+			psmt.setString(5, 부스ID);
+			psmt.setString(6, 부스소개);
+			psmt.setString(7, 첨부파일);
 
 			cnt = psmt.executeUpdate();
 
@@ -72,17 +76,20 @@ public class 신청서_DAO {
 		}
 		return cnt;
 	}
-
-	public int delete(String 신청ID) {
+	
+	//신청서 삭제
+	public int delete(String 신청id) {
 
 		int cnt = 0;
 		try {
 			getConnection();
 
-			String sql = "DELETE FROM apply";
+			String sql = "DELETE FROM apply where 신청id=?";
 
 			psmt = conn.prepareStatement(sql);
-
+			
+			psmt.setString(1, 신청id);
+			
 			cnt = psmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -92,87 +99,23 @@ public class 신청서_DAO {
 		}
 		return cnt;
 	}
-
-	public int update_cusTel(String 연락처) {
-
-		int cnt = 0;
-		try {
-			getConnection();
-
-			String sql = "UPDATE apply SET 연락처 = ?";
-
-			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, 연락처);
-
-			cnt = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-
-		return cnt;
-	}
-
-	public int update_booId(String 부스ID) {
+	//신청서 수정
+	public int update_cusTel(신청서_VO vo) {
 
 		int cnt = 0;
 		try {
 			getConnection();
 
-			String sql = "UPDATE apply SET 부스ID = ?";
+			String sql = "UPDATE apply SET 사업자번호=?,연락처=?,부스id=?,부스소개=?,첨부파일=?,신청상태=?where 신청id=?";
 
 			psmt = conn.prepareStatement(sql);
 
-			psmt.setString(1, 부스ID);
-
-			cnt = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-
-		return cnt;
-	}
-
-	public int update_appInt(String 부스소개) {
-
-		int cnt = 0;
-		try {
-			getConnection();
-
-			String sql = "UPDATE apply SET 부스소개 = ?";
-
-			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, 부스소개);
-
-			cnt = psmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-
-		return cnt;
-	}
-
-	public int update_fesFile(String 첨부파일) {
-
-		int cnt = 0;
-		try {
-			getConnection();
-
-			String sql = "UPDATE apply SET 첨부파일 = ?";
-
-			psmt = conn.prepareStatement(sql);
-
-			psmt.setString(1, 첨부파일);
+			psmt.setString(1, vo.get사업자번호());
+			psmt.setString(2, vo.get연락처());
+			psmt.setString(3, vo.get부스id());
+			psmt.setString(4, vo.get부스소개());
+			psmt.setString(5, vo.get첨부파일());
+			psmt.setString(6, vo.get신청상태());
 
 			cnt = psmt.executeUpdate();
 
@@ -205,12 +148,14 @@ public class 신청서_DAO {
 				String boo_id = rs.getString(5);
 				String app_int = rs.getString(6);
 				String fes_file = rs.getString(7);
+				String 신청상태 = rs.getString(8);
+				String 회원id = rs.getString(9);
 
-				list.add(new 신청서_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file));
+				list.add(new 신청서_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file, 신청상태, 회원id));
 				
 			}
 				for (int i = 0; i < list.size(); i++) {
-					System.out.println(i + "\t" + list.get(i).get신청id() + "\t "+ list.get(i).get이름() + "\t" + list.get(i).get사업자번호() + "\t" + list.get(i).get연락처() + "\t" + list.get(i).get부스id() + "\t" + list.get(i).get부스소개() + "\t" + list.get(i).get첨부파일());
+					System.out.println(i + "\t" + list.get(i).get신청id() + "\t "+ list.get(i).get이름() + "\t" + list.get(i).get사업자번호() + "\t" + list.get(i).get연락처() + "\t" + list.get(i).get부스id() + "\t" + list.get(i).get부스소개() + "\t" + list.get(i).get첨부파일() +"\t" + list.get(i).get신청상태() +"\t" + list.get(i).get회원id());
 					}
 				
 		} catch (SQLException e) {
@@ -221,5 +166,82 @@ public class 신청서_DAO {
 
 		return list;
 	}
+	//부스 상태(대기,승인)
+	public int updateapplywait(신청서_VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConnection();
+
+			String sql = "UPDATE apply SET 신청상태= '대기' where 부스id =?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, vo.get부스id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cnt;
+
+	}
+	public int updateapplycommit(신청서_VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConnection();
+
+			String sql = "UPDATE apply SET 신청상태= '승인' where 부스id =?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, vo.get부스id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cnt;
+
+	}
+	public int updateapplyrefuse(신청서_VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConnection();
+
+			String sql = "UPDATE apply SET 신청상태= '거절' where 부스id =?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, vo.get부스id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cnt;
+
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

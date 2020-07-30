@@ -2,7 +2,7 @@ package 페고파1차프로젝트;
 
 public class 신청서_VO {
 
-	// apply 테이블이 가지고 있는 칼럼/
+	// apply 테이블이 가지고 있는 칼럼//.
 	private String 신청id;
 	private String 이름;
 	private String 사업자번호;
@@ -10,8 +10,27 @@ public class 신청서_VO {
 	private String 부스id;
 	private String 부스소개;
 	private String 첨부파일;
+	private String 신청상태;
+	private String 회원id;
 	
-	public 신청서_VO(String 신청id, String 이름, String 사업자번호, String 연락처, String 부스id, String 부스소개, String 첨부파일) {
+	public String get회원id() {
+		return 회원id;
+	}
+
+	public void set회원id(String 회원id) {
+		this.회원id = 회원id;
+	}
+	
+	public String get신청상태() {
+		return 신청상태;
+	}
+
+	public void set신청상태(String 신청상태) {
+		this.신청상태 = 신청상태;
+	}
+
+	public 신청서_VO(String 신청id, String 이름, String 사업자번호, String 연락처, String 부스id, String 부스소개, String 첨부파일,
+			String 신청상태, String 회원id) {
 		this.신청id = 신청id;
 		this.이름 = 이름;
 		this.사업자번호 = 사업자번호;
@@ -19,6 +38,13 @@ public class 신청서_VO {
 		this.부스id = 부스id;
 		this.부스소개 = 부스소개;
 		this.첨부파일 = 첨부파일;
+		this.신청상태 = 신청상태;
+		this.회원id = 회원id;
+	}
+
+	public 신청서_VO(String 회원id) {
+		super();
+		this.회원id = 회원id;
 	}
 
 	public String get신청id() {

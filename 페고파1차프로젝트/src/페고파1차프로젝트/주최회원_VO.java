@@ -21,6 +21,12 @@ public class 주최회원_VO {
 	}
 
 
+	public 주최회원_VO(String iD, String pW) {
+		ID = iD;
+		PW = pW;
+	}
+
+
 	public 주최회원_VO(String iD, String pW, String 주소, String 기관명, String 연락처) {
 		this.ID = iD;
 		this.PW = pW;

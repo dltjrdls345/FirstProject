@@ -15,6 +15,11 @@ public class 일반회원_VO {
 	
 	
 	
+	public 일반회원_VO(String iD, String pW) {
+		ID = iD;
+		PW = pW;
+	}
+
 	public 일반회원_VO(String pW, String 주소, String 이름, String 연락처, String 생년월일, String 이메일) {
 		this.PW = pW;
 		this.주소 = 주소;
