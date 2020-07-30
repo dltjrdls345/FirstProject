@@ -19,7 +19,7 @@ public class 부스_DAO {
 	// update문으로
 	// where 부스 id = ? 인곳에 set을 
 	//"대기" , "승인"   
-	
+	//
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
