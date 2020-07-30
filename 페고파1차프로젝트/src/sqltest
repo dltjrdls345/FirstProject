@@ -1,5 +1,0 @@
-select * from BOOTH;
-select * from apply;
-select * from CUSTOMER;
-select * from FESTIVAL;
-select * from HOST;
