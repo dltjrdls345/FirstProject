@@ -6,11 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -45,42 +47,42 @@ public class 회원가입_주최 {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setTitle("\uD398\uACE0\uD30C");
-		frame.setBounds(700, 200, 470, 543);
+		frame.setBounds(100, 100, 359, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		panel.setBounds(0, 0, 454, 504);
+		panel.setBounds(0, 0, 331, 457);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(255,0,0,0));
 		
 		아이디 = new JTextField();
 		아이디.setColumns(10);
-		아이디.setBounds(155, 100, 248, 21);
+		아이디.setBounds(109, 123, 176, 21);
 		panel.add(아이디);
 		
 		비밀번호 = new JTextField();
 		비밀번호.setColumns(10);
-		비밀번호.setBounds(155, 145, 248, 21);
+		비밀번호.setBounds(109, 168, 176, 21);
 		panel.add(비밀번호);
 		
 		비밀번호확인 = new JTextField();
 		비밀번호확인.setColumns(10);
-		비밀번호확인.setBounds(155, 190, 248, 21);
+		비밀번호확인.setBounds(109, 213, 176, 21);
 		panel.add(비밀번호확인);
 		
 		주소 = new JTextField();
 		주소.setColumns(10);
-		주소.setBounds(155, 280, 248, 21);
+		주소.setBounds(109, 303, 176, 21);
 		panel.add(주소);
 		
 		기관명 = new JTextField();
 		기관명.setColumns(10);
-		기관명.setBounds(155, 235, 248, 21);
+		기관명.setBounds(109, 258, 176, 21);
 		panel.add(기관명);
 		
 		문의연락처 = new JTextField();
 		문의연락처.setColumns(10);
-		문의연락처.setBounds(155, 325, 248, 21);
+		문의연락처.setBounds(109, 348, 176, 21);
 		panel.add(문의연락처);
 		
 		JButton btnNewButton = new JButton("\uB4A4\uB85C\uAC00\uAE30");
@@ -92,7 +94,7 @@ public class 회원가입_주최 {
 				로그인페이지.main(null);
 			}
 		});
-		btnNewButton.setBounds(50, 400, 97, 35);
+		btnNewButton.setBounds(53, 412, 97, 35);
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("\uAC00\uC785\uC644\uB8CC");
@@ -118,37 +120,44 @@ public class 회원가입_주최 {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(306, 400, 97, 35);
+		btnNewButton_1.setBounds(188, 412, 97, 35);
 		panel.add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("\uC544\uC774\uB514");
-		lblNewLabel.setBounds(62, 100, 57, 21);
+		lblNewLabel.setBounds(40, 123, 57, 21);
 		panel.add(lblNewLabel);
 		
 		JLabel lblPw = new JLabel("\uBE44\uBC00\uBC88\uD638");
-		lblPw.setBounds(62, 145, 57, 21);
+		lblPw.setBounds(40, 168, 57, 21);
 		panel.add(lblPw);
 		
 		JLabel lblNewLabel_2 = new JLabel("\uC8FC\uC18C");
-		lblNewLabel_2.setBounds(62, 280, 57, 21);
+		lblNewLabel_2.setBounds(40, 276, 57, 21);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("\uAE30\uAD00\uBA85");
-		lblNewLabel_3.setBounds(62, 235, 57, 21);
+		lblNewLabel_3.setBounds(40, 321, 57, 21);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("\uBB38\uC758\uC5F0\uB77D\uCC98");
-		lblNewLabel_4.setBounds(62, 325, 69, 21);
+		lblNewLabel_4.setBounds(38, 373, 69, 21);
 		panel.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_1 = new JLabel("\uC8FC\uCD5C\uD68C\uC6D0 \uAC00\uC785");
 		lblNewLabel_1.setFont(new Font("함초롬바탕", Font.PLAIN, 24));
-		lblNewLabel_1.setBounds(50, 28, 166, 46);
+		lblNewLabel_1.setBounds(107, 32, 127, 35);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_5 = new JLabel("\uBE44\uBC00\uBC88\uD638 \uD655\uC778");
-		lblNewLabel_5.setBounds(62, 190, 81, 21);
+		lblNewLabel_5.setBounds(41, 213, 81, 21);
 		panel.add(lblNewLabel_5);
+		
+		
+		String img7 = "C:\\Users\\SMT082\\git\\FirstProject\\페고파1차프로젝트\\image\\7.png";
+		Image image7 = new ImageIcon(img7).getImage();
+		JLabel lbl_img7 = new JLabel(new ImageIcon(image7.getScaledInstance(343, 481, Image.SCALE_SMOOTH)));
+		lbl_img7.setBounds(0, 0, 343, 481);
+		frame.getContentPane().add(lbl_img7);
 	}
 
 }
