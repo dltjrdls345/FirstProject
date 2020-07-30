@@ -16,6 +16,10 @@ public class 부스_DAO {
 	//     
 	// 축제id별로 조회 :  where 축제id = (select id from festival where 축제 id = ?) 
 	// 
+	// update문으로
+	// where 부스 id = ? 인곳에 set을 
+	//"대기" , "승인"   
+	
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
@@ -180,5 +184,69 @@ public class 부스_DAO {
 		}
 		return BOOTH;
 		}
+	//부스상태(대기,승인)
+	public int updateBoothcommit(부스VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConn();
+
+			String sql = "UPDATE BOOTH SET 부스상태= '승인' where 부스id =?)";
+
+			pst = conn.prepareStatement(sql);
+
+			pst.setString(1, vo.get부스ID());
+
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}		
+		return cnt;
+	}
+	public int updateboothwait(부스VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConn();
+
+			String sql = "UPDATE BOOTH SET 부스상태= '대기' where 부스id =?)";
+
+			pst = conn.prepareStatement(sql);
+
+			pst.setString(1, vo.get부스ID());
+
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}		
+		return cnt;
+	}
+	public int updateboothrefuse(부스VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConn();
+
+			String sql = "UPDATE BOOTH SET 부스상태= '거절' where 부스id =?)";
+
+			pst = conn.prepareStatement(sql);
+
+			pst.setString(1, vo.get부스ID());
+
+			cnt = pst.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}		
+		return cnt;
+	}
 	
 }

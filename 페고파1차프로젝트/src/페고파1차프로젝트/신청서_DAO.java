@@ -205,12 +205,14 @@ public class 신청서_DAO {
 				String boo_id = rs.getString(5);
 				String app_int = rs.getString(6);
 				String fes_file = rs.getString(7);
+				String 신청상태 = rs.getString(8);
+				String 회원id = rs.getString(9);
 
-				list.add(new 신청서_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file));
+				list.add(new 신청서_VO(app_id, cus_id, app_num, cus_tel, boo_id, app_int, fes_file, 신청상태, 회원id));
 				
 			}
 				for (int i = 0; i < list.size(); i++) {
-					System.out.println(i + "\t" + list.get(i).get신청id() + "\t "+ list.get(i).get이름() + "\t" + list.get(i).get사업자번호() + "\t" + list.get(i).get연락처() + "\t" + list.get(i).get부스id() + "\t" + list.get(i).get부스소개() + "\t" + list.get(i).get첨부파일());
+					System.out.println(i + "\t" + list.get(i).get신청id() + "\t "+ list.get(i).get이름() + "\t" + list.get(i).get사업자번호() + "\t" + list.get(i).get연락처() + "\t" + list.get(i).get부스id() + "\t" + list.get(i).get부스소개() + "\t" + list.get(i).get첨부파일() +"\t" + list.get(i).get신청상태() +"\t" + list.get(i).get회원id());
 					}
 				
 		} catch (SQLException e) {
@@ -221,5 +223,82 @@ public class 신청서_DAO {
 
 		return list;
 	}
+	//부스 상태(대기,승인)
+	public int updateapplywait(신청서_VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConnection();
+
+			String sql = "UPDATE apply SET 신청상태= '대기' where 부스id =?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, vo.get부스id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cnt;
+
+	}
+	public int updateapplycommit(신청서_VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConnection();
+
+			String sql = "UPDATE apply SET 신청상태= '승인' where 부스id =?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, vo.get부스id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cnt;
+
+	}
+	public int updateapplyrefuse(신청서_VO vo) {
+		
+		int cnt = 0;
+		try {
+			getConnection();
+
+			String sql = "UPDATE apply SET 신청상태= '거절' where 부스id =?)";
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1, vo.get부스id());
+
+			cnt = psmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return cnt;
+
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }
