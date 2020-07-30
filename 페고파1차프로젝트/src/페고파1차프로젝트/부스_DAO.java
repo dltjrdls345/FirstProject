@@ -95,7 +95,7 @@ public class 부스_DAO {
 			String sql = "DELETE FROM BOOTH where 부스id = ?";
 
 			pst = conn.prepareStatement(sql);
-
+			pst.setString(1, 부스id);
 			cnt = pst.executeUpdate();
 
 		} catch (SQLException e) {
