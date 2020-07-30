@@ -3,89 +3,78 @@ package 페고파1차프로젝트;
 public class 신청서_VO {
 
 	// apply 테이블이 가지고 있는 칼럼
-	private String app_id;
-	private String cus_id;
-	private String app_num;
-	private String cus_tel;
-	private String boo_id;
-	private String app_int;
-	private String fes_file;
-
-	public 신청서_VO(String app_id, String cus_id, String app_num, String cus_tel, String boo_id, String app_int,
-			String fes_file) {
-		this.app_id = app_id;
-		this.cus_id = cus_id;
-		this.app_num = app_num;
-		this.cus_tel = cus_tel;
-		this.boo_id = boo_id;
-		this.app_int = app_int;
-		this.fes_file = fes_file;
+	private String 신청id;
+	private String 이름;
+	private String 사업자번호;
+	private String 연락처;
+	private String 부스id;
+	private String 부스소개;
+	private String 첨부파일;
+	
+	public 신청서_VO(String 신청id, String 이름, String 사업자번호, String 연락처, String 부스id, String 부스소개, String 첨부파일) {
+		this.신청id = 신청id;
+		this.이름 = 이름;
+		this.사업자번호 = 사업자번호;
+		this.연락처 = 연락처;
+		this.부스id = 부스id;
+		this.부스소개 = 부스소개;
+		this.첨부파일 = 첨부파일;
 	}
 
-	public 신청서_VO(String app_id, String cus_id, String app_num, String cus_tel, String boo_id, String app_int) {
-		this.app_id = app_id;
-		this.cus_id = cus_id;
-		this.app_num = app_num;
-		this.cus_tel = cus_tel;
-		this.boo_id = boo_id;
-		this.app_int = app_int;
+	public String get신청id() {
+		return 신청id;
 	}
 
-	public String getApp_id() {
-		return app_id;
+	public void set신청id(String 신청id) {
+		this.신청id = 신청id;
 	}
 
-	public void setApp_id(String app_id) {
-		this.app_id = app_id;
+	public String get이름() {
+		return 이름;
 	}
 
-	public String getCus_id() {
-		return cus_id;
+	public void set이름(String 이름) {
+		this.이름 = 이름;
 	}
 
-	public void setCus_id(String cus_id) {
-		this.cus_id = cus_id;
+	public String get사업자번호() {
+		return 사업자번호;
 	}
 
-	public String getApp_num() {
-		return app_num;
+	public void set사업자번호(String 사업자번호) {
+		this.사업자번호 = 사업자번호;
 	}
 
-	public void setApp_num(String app_num) {
-		this.app_num = app_num;
+	public String get연락처() {
+		return 연락처;
 	}
 
-	public String getCus_tel() {
-		return cus_tel;
+	public void set연락처(String 연락처) {
+		this.연락처 = 연락처;
 	}
 
-	public void setCus_tel(String cus_tel) {
-		this.cus_tel = cus_tel;
+	public String get부스id() {
+		return 부스id;
 	}
 
-	public String getBoo_id() {
-		return boo_id;
+	public void set부스id(String 부스id) {
+		this.부스id = 부스id;
 	}
 
-	public void setBoo_id(String boo_id) {
-		this.boo_id = boo_id;
+	public String get부스소개() {
+		return 부스소개;
 	}
 
-	public String getApp_int() {
-		return app_int;
+	public void set부스소개(String 부스소개) {
+		this.부스소개 = 부스소개;
 	}
 
-	public void setApp_int(String app_int) {
-		this.app_int = app_int;
+	public String get첨부파일() {
+		return 첨부파일;
 	}
 
-	public String getFes_file() {
-		return fes_file;
+	public void set첨부파일(String 첨부파일) {
+		this.첨부파일 = 첨부파일;
 	}
-
-	public void setFes_file(String fes_file) {
-		this.fes_file = fes_file;
-	}
-
 
 }

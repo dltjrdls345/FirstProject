@@ -210,7 +210,7 @@ public class 신청서_DAO {
 				
 			}
 				for (int i = 0; i < list.size(); i++) {
-					System.out.println(i + "\t" + list.get(i).getApp_id() + "\t "+ list.get(i).getCus_id() + "\t" + list.get(i).getApp_num() + "\t" + list.get(i).getCus_tel() + "\t" + list.get(i).getBoo_id() + "\t" + list.get(i).getApp_int() + "\t" + list.get(i).getFes_file());
+					System.out.println(i + "\t" + list.get(i).get신청id() + "\t "+ list.get(i).get이름() + "\t" + list.get(i).get사업자번호() + "\t" + list.get(i).get연락처() + "\t" + list.get(i).get부스id() + "\t" + list.get(i).get부스소개() + "\t" + list.get(i).get첨부파일());
 					}
 				
 		} catch (SQLException e) {
